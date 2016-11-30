@@ -39,6 +39,7 @@ import com.horstmann.violet.framework.plugin.PluginLoader;
 import com.horstmann.violet.framework.theme.BlueAmbianceTheme;
 import com.horstmann.violet.framework.theme.ClassicMetalTheme;
 import com.horstmann.violet.framework.theme.DarkBlueTheme;
+import com.horstmann.violet.framework.theme.DarkOrangeTheme;
 import com.horstmann.violet.framework.theme.ITheme;
 import com.horstmann.violet.framework.theme.ThemeManager;
 import com.horstmann.violet.framework.userpreferences.IUserPreferencesDao;
@@ -73,17 +74,7 @@ public class UMLEditorWebStart
         IUserPreferencesDao userPreferencesDao = new JNLPUserPreferencesDao();
         BeanFactory.getFactory().register(IUserPreferencesDao.class, userPreferencesDao);
         
-        ThemeManager themeManager = new ThemeManager();
-        ITheme theme1 = new ClassicMetalTheme();
-        ITheme theme2 = new BlueAmbianceTheme();
-        ITheme theme3 = new DarkBlueTheme();
-        List<ITheme> themeList = new ArrayList<ITheme>();
-        themeList.add(theme1);
-        themeList.add(theme2);
-        themeList.add(theme3);
-        themeManager.setInstalledThemes(themeList);
-        BeanFactory.getFactory().register(ThemeManager.class, themeManager);
-        themeManager.applyPreferedTheme();
+        initThemeList();
         
         DialogFactory dialogFactory = new DialogFactory(DialogFactoryMode.INTERNAL);
         BeanFactory.getFactory().register(DialogFactory.class, dialogFactory);
@@ -93,6 +84,24 @@ public class UMLEditorWebStart
         
         IFileChooserService fileChooserService = new JNLPFileChooserService();
         BeanFactory.getFactory().register(IFileChooserService.class, fileChooserService);
+    }
+    
+    private void initThemeList(){
+        ThemeManager themeManager = new ThemeManager();
+        ITheme theme1 = new ClassicMetalTheme();
+        ITheme theme2 = new BlueAmbianceTheme();
+        ITheme theme3 = new DarkBlueTheme();
+        ITheme theme4 = new DarkOrangeTheme();
+        
+        List<ITheme> themeList = new ArrayList<ITheme>();
+        themeList.add(theme1);
+        themeList.add(theme2);
+        themeList.add(theme3);
+        themeList.add(theme4);
+        
+        themeManager.setInstalledThemes(themeList);
+        BeanFactory.getFactory().register(ThemeManager.class, themeManager);
+        themeManager.applyPreferedTheme();
     }
     
     /**
